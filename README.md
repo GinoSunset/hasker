@@ -33,4 +33,4 @@ pytest -v
 
 Web demo
 ------------
-application will be available in page heroku by url:  https://hasker-simon.herokuapp.co
+application will be available in page heroku by url:  https://hasker-simon.herokuapp.com
