@@ -14,7 +14,7 @@ How run
 ```shell script
 pip install -r requirements.txt
 ```
-setup db
+* setup db
 ```shell script
 mange.py migrate
 ```
