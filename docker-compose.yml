@@ -13,7 +13,6 @@ services:
     volumes:
       - .:/code
     environment:
-      - SECRET_KEY=sdfefnkuUJOU#HiNDIOhddklfnO)22#H
       - NAME=postgres
       - DB=postgres
       - PASSWORD=postgres

@@ -9,6 +9,14 @@ Requrements
 
 How run
 -------------
+Whrite `secret_key` in compose
+Run in docker:
+```shell script
+docker-compoer run python manage.py migrate
+docker-compose up
+```
+
+
 * Clone repo
 * install requirements
 ```shell script
