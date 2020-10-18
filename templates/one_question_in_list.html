@@ -1,6 +1,6 @@
 <a class="row question" href="{{question.get_absolute_url}}">
-    <div class="col-1 text-center">Votes <span class="h2">{{question.votes}}</span> </div>
-    <div class="col-1 text-center">Answer <span class="h2">{{question.answer_count}}</span> </div>
+    <div class="col-1 text-center text-secondary">Votes <span class="h2">{{question.votes}}</span> </div>
+    <div class="col-1 text-center text-secondary">Answer <span class="h2">{{question.answer_count}}</span> </div>
     <div class="col-8">
         <table class="table table-borderless table-sm mb-0">
             <tr>
@@ -19,7 +19,7 @@
         </table>
     </div>
     <div class="col-2">
-        <img class='avatar' src="{{ question.author.account.get_url_avatar }}" style="width:42px" /> {{question.author}}
-
+        <img class='avatar' src="{{ question.author.account.get_url_avatar }}" style="width:42px" /> <span class="text-secondary">{{question.author}}
+</span>
     </div>
 </a>
