@@ -1,25 +1,16 @@
 {% load static %}
+
 <html>
 
 <head>
     <title>{% block title%}Hasker{%endblock%}</title>
-    <link href="{% static 'css/main.css' %}"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-    <link href="{% static 'css/selectize.css' %}"
-      rel="stylesheet" />
+    <link href="{% static 'css/main.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static 'css/selectize.css' %}" rel="stylesheet" />
     <script src="{% static 'js/selectize.js' %}"></script>
     {% block scripts %}{%endblock%}
 </head>
@@ -37,15 +28,13 @@
             {% if user.is_authenticated %}
             <img class='avatar' src="{{ user.account.get_url_avatar }}" style="width:42px" />
             <a class="btn btn-outline-success" href="{% url 'account_settings' %}" id="profile">{{user.username}}</a>
-            <a class="btn btn-outline-success" href="{% url 'logout' %}" id="logout">Log out</a>
-            {% else %}
+            <a class="btn btn-outline-success" href="{% url 'logout' %}" id="logout">Log out</a> {% else %}
             <a class="btn btn-outline-success" data-toggle="modal" data-target="#login_modal" id="login_btn">
                 Log in
             </a>
             <a class="btn btn-outline-success" data-toggle="modal" data-target="#sign_up_modal" id="sign_up_btn">
                 Sign up
-            </a>
-            {% endif %}
+            </a> {% endif %}
         </div>
     </div>
     <div class="container">
@@ -62,12 +51,9 @@
             <div class="col-9">{% block content %} {% endblock %}</div>
             <div class="col-3" id="trending">
                 {% if user.is_authenticated %}
-                <a id="ask_btn" class="btn btn-success btn-lg btn-block" data-toggle="modal"
-                   data-target="#ask_modal">
+                <a id="ask_btn" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#ask_modal">
                     Ask!
-                </a>
-
-                {% endif %}
+                </a> {% endif %}
                 <div class="popular-questions">
                     {% include 'popular_question.html' %}
                 </div>
@@ -77,12 +63,11 @@
 
     </div>
 </body>
-{% if not  user.is_authenticated %}
+{% if not user.is_authenticated %}
 <!-- Modal registration -->
 {% include 'modal_registration.html' %}
 <!-- Modal login -->
-{% include 'modal_login.html' %}
-{% endif %}
+{% include 'modal_login.html' %} {% endif %}
 <!-- Modal ask question -->
 <div class="modal fade" id="ask_modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -99,16 +84,13 @@
                     <div class="form-group row">
                         <label for="title" class="col-sm-2 col-form-label">Title</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="title" id="title"
-                                   placeholder="How create frontend with c++?" required>
+                            <input type="text" class="form-control" name="title" id="title" placeholder="How create frontend with c++?" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="question" class="col-sm-2 col-form-label">Question</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" id="question" name="text"
-                                      placeholder="I think it's impossible, but WebAssembly gives me a chance."
-                                      required></textarea>
+                            <textarea class="form-control" id="question" name="text" placeholder="I think it's impossible, but WebAssembly gives me a chance." required></textarea>
                         </div>
                     </div>
 
@@ -129,7 +111,6 @@
     </div>
 </div>
 <script>
-
     $('#tags').selectize({
         delimiter: ',',
         persist: false,
@@ -143,4 +124,5 @@
     });
 </script>
 {% block end_script %}{% endblock %}
+
 </html>

@@ -1,13 +1,25 @@
+a {
+    text-decoration: none !important;
+}
+
 .question {
     border-bottom: 1px solid var(--gray);
     padding-bottom: 5px;
     margin-bottom: 20px;
 }
+
 .answer {
- border-bottom: 1px solid var(--gray);
+    border-bottom: 1px solid var(--gray);
     padding-bottom: 5px;
     margin-bottom: 20px;
-    }
+}
+
 .btn-tag {
-min-width: 70px;
+    min-width: 70px;
+}
+
+.sorted-block {
+    border-bottom: 1px solid var(--gray);
+    padding-bottom: 5px;
+    margin-bottom: 20px;
 }

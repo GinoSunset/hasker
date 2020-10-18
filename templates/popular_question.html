@@ -1,13 +1,17 @@
+<div class="mb-2">
+    Popular question:
+</div>
 {% for question in popular_questions %}
-<a href="{{question.get_absolute_url}}" class="popular-question m-2">
+<a href="{{question.get_absolute_url}}" class="popular-question mb-2">
     <div class="row">
         <div class="col-1">
-            <span class="badge badge-success h5">{{question.votes}}</span>
+            <h5>
+                <span class="badge badge-success">{{question.votes}}</span>
+            </h5>
         </div>
         <div class="col-10">
             <span class="h5">
                     {{question.title}}
-
             </span>
         </div>
     </div>
