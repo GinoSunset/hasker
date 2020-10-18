@@ -1,6 +1,5 @@
-{% extends  'base.html' %}
-{% block content %}
-    <h2>{{object.title}}</h2>
+{% extends 'base.html' %} {% block content %}
+<h2>{{object.title}}</h2>
 <div class="row question">
     <div class="col-1">
         <table>
@@ -9,17 +8,20 @@
                     <a href="{{object.get_absolute_url}}up/" id="up_question">
                         <i class="material-icons">keyboard_arrow_up</i>
                     </a>
-                </td></tr>
+                </td>
+            </tr>
             <tr>
                 <td class="text-center">
                     <span id="votes-question">{{object.votes}}</span>
-                </td> </tr>
+                </td>
+            </tr>
             <tr>
                 <td class="text-center">
                     <a href="{{object.get_absolute_url}}down/" id="down_question">
                         <i class="material-icons">keyboard_arrow_down</i>
                     </a>
-                </td> </tr>
+                </td>
+            </tr>
         </table>
     </div>
     <div class="col-11">
@@ -29,18 +31,16 @@
             </div>
         </div>
         <div class="row justify-content-between">
-        <div class="col-6">
-        {% for tag in object.tags.all %}
-            <a class="btn btn-success btn-sm btn-tag" href="/search?q=tag:{{tag.label}}">
+            <div class="col-6">
+                {% for tag in object.tags.all %}
+                <a class="btn btn-success btn-sm btn-tag" href="/search?q=tag:{{tag.label}}">
                 {{tag.label}}
-            </a>
-        {% endfor %}
+            </a> {% endfor %}
+            </div>
+            <div class="col-2">
+                <img class='avatar' src="{{ object.author.account.get_url_avatar }}" style="width:42px" /> {{object.author}}
+            </div>
         </div>
-        <div class="col-2">
-            <img class='avatar' src="{{ object.author.account.get_url_avatar }}" style="width:42px" />
-            {{object.author}}
-        </div>
-    </div>
     </div>
 </div>
 {% for answer in object_list %}
@@ -52,11 +52,13 @@
                     <a href="{{answer.get_absolute_url}}up/" id="answer-{{ answer.pk }}-up">
                         <i class="material-icons">keyboard_arrow_up</i>
                     </a>
-                </td></tr>
+                </td>
+            </tr>
             <tr>
                 <td class="text-center" id="votes-answer-{{ answer.pk }}">
                     {{answer.votes}}
-                </td> </tr>
+                </td>
+            </tr>
             <tr>
                 <td class="text-center">
                     <a href="{{answer.get_absolute_url}}down/" id="answer-{{ answer.pk }}-down">
@@ -67,8 +69,7 @@
             {% if question.author == request.user %}
             <tr>
                 <td>
-                    <a href="{{ answer.get_absolute_url_to_toggle_answer_as_correct }}"
-                       id="toggle-correct-answer-{{ answer.id }}">
+                    <a href="{{ answer.get_absolute_url_to_toggle_answer_as_correct }}" id="toggle-correct-answer-{{ answer.id }}">
                         {% if answer.correct %}
                         <span id="grade-{{ answer.id }}" class="material-icons correct-answer">
                             grade
@@ -82,17 +83,15 @@
                 </td>
             </tr>
 
-            {% else %}
-                {% if answer.correct %}
-                <tr class="correct-answer">
-                    <td>
-                        <span class="material-icons">
-                            grade
-                        </span>
-                    </td>
-                </tr>
-                {% endif %}
-            {% endif %}
+            {% else %} {% if answer.correct %}
+            <tr class="correct-answer">
+                <td>
+                    <span class="material-icons text-success">
+                            done_outline
+                    </span>
+                </td>
+            </tr>
+            {% endif %} {% endif %}
         </table>
     </div>
     <div class="col-11">
@@ -103,22 +102,18 @@
         </div>
         <div class="row justify-content-between">
             <div class="col-2 offset-10">
-            <img class='avatar' src="{{ answer.author.account.get_url_avatar }}" style="width:42px" />
-                {{answer.author}}
+                <img class='avatar' src="{{ answer.author.account.get_url_avatar }}" style="width:42px" /> {{answer.author}}
             </div>
         </div>
     </div>
 </div>
-{% endfor %}
-
-{% if user.is_authenticated %}
+{% endfor %} {% if user.is_authenticated %}
 <div class="display-4">Your answer</div>
 <form action="" method="post" id="answer-form">
-    {% csrf_token %}
-    {% for field in form %}
+    {% csrf_token %} {% for field in form %}
     <div class="form-group row">
         <div class="col-sm-10">
-             <textarea class="form-control" name="{{field.html_name}}"></textarea>
+            <textarea class="form-control" name="{{field.html_name}}"></textarea>
             <span class="help-inline">
                 {% for error in  field.errors %}{{ error }}{% endfor %}
             </span>
@@ -126,10 +121,7 @@
     </div>
     {% endfor %}
     <div class="form-actions">
-        <button type="submit" id="send_answer_btn" class="btn btn-outline-success" >Submit</button>
+        <button type="submit" id="send_answer_btn" class="btn btn-outline-success">Submit</button>
     </div>
 </form>
-{% endif %}
-
-{% include 'paginator.html' %}
-{% endblock %}
+{% endif %} {% include 'paginator.html' %} {% endblock %}
