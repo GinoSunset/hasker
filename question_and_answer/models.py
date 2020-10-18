@@ -12,16 +12,21 @@ User = get_user_model()
 
 class SortedByVotesQuerySet(models.QuerySet):
     def order_by_votes_and_date(self):
-        return self.annotate(up=Count('votes_up')).annotate(down=Count('votes_down')).\
-            order_by(F('down') - F('up'), '-date')
+        return (
+            self.annotate(up=Count("votes_up"))
+            .annotate(down=Count("votes_down"))
+            .order_by(F("down") - F("up"), "-date")
+        )
 
 
 class Message(models.Model):
     text = models.TextField()
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now=True)
-    votes_up = models.ManyToManyField(User, related_name='user_votes_up')
-    votes_down = models.ManyToManyField(User, related_name='user_votes_down')
+    votes_up = models.ManyToManyField(User, related_name="user_votes_up", blank=True)
+    votes_down = models.ManyToManyField(
+        User, related_name="user_votes_down", blank=True
+    )
     objects = SortedByVotesQuerySet.as_manager()
 
     @property
@@ -49,7 +54,7 @@ class Question(Message):
         return self.answer_set.count()
 
     def get_absolute_url(self):
-        return reverse('detail_question', args=[str(self.pk)])
+        return reverse("detail_question", args=[str(self.pk)])
 
     def __str__(self):
         return self.title
@@ -58,8 +63,12 @@ class Question(Message):
 class Answer(Message):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     correct = models.BooleanField(default=False)
-    votes_up = models.ManyToManyField(User, related_name='user_votes_answer_up')
-    votes_down = models.ManyToManyField(User, related_name='user_votes_answer_down')
+    votes_up = models.ManyToManyField(
+        User, related_name="user_votes_answer_up", blank=True
+    )
+    votes_down = models.ManyToManyField(
+        User, related_name="user_votes_answer_down", blank=True
+    )
 
     def get_absolute_url_to_toggle_answer_as_correct(self):
         return f"{reverse('detail_question', args=[str(self.question.pk)])}answer/{self.pk}/correct/"
